@@ -1,11 +1,9 @@
-import {useState} from "react";
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { ThemeConfig } from "flowbite-react";
-
 const poppins = Poppins({
 	variable: "--font-poppins",
 	weight: ["400"],
@@ -34,12 +32,14 @@ export default function RootLayout({
 			<body
 				className={`${poppins.variable} ${roboto.variable} antialiased min-h-screen`}
 			>
-				<div className="min-h-screen w-full flex flex-col justify-between relative">
+				<div className="min-h-screen w-full flex flex-col justify-between">
 					<ThemeConfig dark={false} />
 					<div>
 						<Header />
+						<div className="blurredCircle"></div>
 						{children}
 					</div>
+
 					<Footer />
 				</div>
 			</body>

@@ -12,19 +12,37 @@
   background-color: #264653;
 }
 
-.blurredCircle {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+.yellowBackgroundContainer {
   width: 100%;
   height: 80%;
-  background: #F3DE8A;
-  border-bottom-left-radius: 80%;
-  border-bottom-right-radius: 80%;
-  opacity: 0.9;
-  filter: blur(40px);
-  z-index: -1;
+  z-index: -100;
+  position: absolute;
+  top: 0;
 }
 
+.square {
+  height: 70%;
+  width: 100%;
+  background-color: #F3DE8A;
+  position: relative;
+  border-radius: 0 0 0px 0px;
+}
 
+.blurredHalfCircle {
+  position: relative;
+  bottom: 50px;
+  width: 105%;
+  height: 20%;
+  background-color: #F3DE8A;
+  border-radius: 0px 0px 60% 60%;
+  filter: blur(15px);
+}
+
+.background {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: #F3DE8A;
+  z-index: -1;
+}

@@ -1,0 +1,9 @@
+Having several issues: for one, when it redirects to the location page it has a white background for a moment. Another issue is that once you decline the modal it wont save the cookie and redirect the page. It will if you refresh the page but you shouldn't have to.
+
+TODOS:
+-need to build the components that will hold the uv index info
+-need to write a server action that sends a get request to the flask api
+-need to add mobile views
+-need to color the modal according to the color palette
+-need to work on the backend python script
+-later will need to add code for if in production what the domain will be for getAddressData

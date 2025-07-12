@@ -1,3 +1,5 @@
+"use client";
+
 import "../styles/layout-components.css";
 
 export default function Footer() {
@@ -6,7 +8,7 @@ export default function Footer() {
 			<p className="text-white">
 				Created by Myco Davenport |{" "}
 				<a
-					className="text-gray underline"
+					className="text-gray grayColoring"
 					target="_blank"
 					href="https://github.com/mjs001"
 				>

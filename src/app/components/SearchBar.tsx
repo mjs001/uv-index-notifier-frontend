@@ -1,34 +1,33 @@
 "use client";
 import { useState, useEffect } from "react";
 import { TextInput, Button } from "flowbite-react";
-import axios from "axios";
 import "../styles/home.css";
 import { getAddressData } from "../data/actions/getAddressData";
 import { useActionState } from "react";
 import Cookies from "js-cookie";
-import Spinner from "./Spinner";
 import CookieModal from "./CookieModal";
 import { redirect } from "next/navigation";
+
 const initialState = {
 	error: "",
-	data: { address: "", lon: "", lat: "" },
+	data: { address: "", lat: "", lon: "" },
 	cookie: false,
 };
 
 export default function SearchBar() {
+
+
+
 	const [state, formAction] = useActionState(getAddressData, initialState);
 	const [openModal, setOpenModal] = useState(false);
-	const [hasCookie, setHasCookie] = useState(false);
-	const [cookie, setCookie] = useState({ address: "", lon: "", lat: "" });
+	const [cookie, setCookie] = useState({ address: "", lat: "", lon: "" });
 	const [hydrated, setHydrated] = useState(false);
-
+	const rawCookie = Cookies.get("locationData");
+	const [address, setAddress] = useState(rawCookie ? JSON.parse(rawCookie).address : undefined)
 	useEffect(() => {
 		setHydrated(true);
 		if (Cookies.get("locationData") !== undefined) {
-			setHasCookie(true);
 			setOpenModal(true);
-		} else {
-			setHasCookie(false);
 		}
 	}, []);
 
@@ -36,8 +35,10 @@ export default function SearchBar() {
 		if (hydrated && state.data && state.data.address) {
 			Cookies.set("locationData", JSON.stringify(state.data), { expires: 14 });
 			setCookie(state.data);
+			console.log("address", state.data.address)
+			console.log("inside useeffect", state);
 			if (!state.error) {
-				redirect("/location")
+				redirect("/location");
 			}
 		}
 	}, [state, hydrated]);
@@ -46,14 +47,14 @@ export default function SearchBar() {
 		<div>
 			{!hydrated ? (
 				<div className="mt-4">
-					<Spinner />
+					<p>Loading...</p>
 				</div>
 			) : (
 				<>
 					<CookieModal
 						openModal={openModal}
 						openModalChange={setOpenModal}
-						address={cookie.address}
+						address={address}
 					/>
 					<div className="flex justify-center items-center">
 						{state.error && (
@@ -64,11 +65,6 @@ export default function SearchBar() {
 						className="relative searchForm flex justify-center items-center mt-20 shadow-md"
 						action={formAction}
 					>
-						<input
-							type="hidden"
-							value={hasCookie.toString()}
-							name="hasCookie"
-						/>
 						<TextInput
 							className="h-[40px] w-[70vw]"
 							placeholder="Enter your location..."

@@ -3,15 +3,14 @@ import formatSearch from "../../utilities/formatInputData";
 import { redirect } from "next/navigation";
 import { locationData } from "../../types/locationData";
 import { redirect } from "next/navigation";
+import { data } from "../../types/data";
 export async function getAddressData(
 	prevState: locationData,
 	formData: FormData
 ): Promise<locationData> {
-	if (String(formData.get("hasCookie")) === "true") {
-		return { error: "", data: { address: "", lon: "", lat: "" }, cookie: true };
-	}
-	//let data = { address: "", lon: "", lat: "" };
-	let data = { address: "Smiths Grove, KY", lon: "86.2078", lat: "37.0525" };
+	//NEED TO REVERT TO BLANK DATA AND UNCOMMENT CODE AFTER TESTING!!!
+	//let data = { address: "", lat: "", lon: "" };
+	let data = { address: "Smiths Grove, KY", lat: "86.2078", lon: "37.0525" };
 	let error = "";
 	const location = String(formData.get("location"));
 	const formattedInput = formatSearch(location);
@@ -27,7 +26,7 @@ export async function getAddressData(
 	// 			const address = res.data.results[0].formatted;
 	// 			const lon = res.data.results[0].lon;
 	// 			const lat = res.data.results[0].lat;
-	// 			data = {address: address, lon: lon, lat: lat};
+	// 			data = {address: address, lat: lat, lon: lon};
 	// 		}
 	// 	})
 	// 	.catch((err) => {

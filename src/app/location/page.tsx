@@ -1,10 +1,13 @@
+
 import "../styles/layout-components.css";
-import Link from "next/link";
-export default function Location() {
+import HomeLink from "../components/HomeLink"
+import UvIndexContainer from "../components/UvIndexContainer";
+export default async function Location() {
 	return (
-		<div className="flex flex-column justify-center items-center">
-<div className="background"></div>
-<Link href="/">&larr; Home</Link>
+		<div className="flex flex-col justify-between items-center">
+			<div className="background"></div>
+			<HomeLink />
+			<UvIndexContainer />
 		</div>
 	);
 }

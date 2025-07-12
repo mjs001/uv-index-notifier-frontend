@@ -1,10 +1,19 @@
+"use client";
 import SearchBar from "./components/SearchBar";
+import { useEffect } from "react";
 import "./styles/layout-components.css";
 export default function Home() {
+	useEffect(() => {
+		document.body.style.backgroundColor = "white";
+		return () => {
+			document.body.style.backgroundColor = "";
+		};
+	}, []);
+
 	return (
 		<div
 			className="flex flex-col justify-center items-center"
-			role="presentation"
+			role="presentation" suppressHydrationWarning
 		>
 			<div className="yellowBackgroundContainer flex flex-col items-center">
 				<div className="square"></div>

@@ -4,13 +4,14 @@ import { redirect } from "next/navigation";
 import { locationData } from "../../types/locationData";
 import { redirect } from "next/navigation";
 import { data } from "../../types/data";
+import { getDomainForNextApp } from "../../utilities/getDomain";
 export async function getAddressData(
 	prevState: locationData,
 	formData: FormData
 ): Promise<locationData> {
 	//NEED TO REVERT TO BLANK DATA AND UNCOMMENT CODE AFTER TESTING!!!
 	//let data = { address: "", lat: "", lon: "" };
-	let data = { address: "Smiths Grove, KY", lat: "86.2078", lon: "37.0525" };
+	let data = { address: "Smiths Grove, KY", lat: "86.2078", lon: "37.0525", timezone: "America/Chicago" };
 	let error = "";
 	const location = String(formData.get("location"));
 	const formattedInput = formatSearch(location);
@@ -26,7 +27,8 @@ export async function getAddressData(
 	// 			const address = res.data.results[0].formatted;
 	// 			const lon = res.data.results[0].lon;
 	// 			const lat = res.data.results[0].lat;
-	// 			data = {address: address, lat: lat, lon: lon};
+	//			const timezone = res.data.results[0].timezone.name
+	// 			data = {address: address, lat: lat, lon: lon, timezone: timezone};
 	// 		}
 	// 	})
 	// 	.catch((err) => {
@@ -34,11 +36,7 @@ export async function getAddressData(
 	// 		error = err.message;
 	// 	});
 	const allData = { error: error, data: data, cookie: false };
-	const environment = process.env.NODE_ENV;
-	let domain = "";
-	if (environment === "development") {
-		domain = "http://localhost:3000";
-	}
+	const domain = getDomainForNextApp();
 	axios
 		.post(`${domain}/api/location`, allData)
 		.then((res) => console.log(res))

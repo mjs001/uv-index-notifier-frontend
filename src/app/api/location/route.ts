@@ -2,12 +2,12 @@ import Cookies from "js-cookie";
 import { locationData, locationData } from "../../types/locationData"
 import { NextRequest, NextResponse } from "next/server";
 
-let locationData: locationData = { error: "", data: { address: "", lat: "", lon: "" }, cookie: false };
+let locationData: locationData = { error: "", data: { address: "", lat: "", lon: "", timezone: "" }, cookie: false };
 
 export async function GET(request: Request) {
   const locationDataError = locationData.error;
-  const { address, lon, lat } = locationData.data;
-  if (!address || !lon || !lat) {
+  const { address, lon, lat, timezone } = locationData.data;
+  if (!address || !lon || !lat || !timezone) {
     return NextResponse.json({ error: "Missing required fields. Please insert location again." }, { status: 400 })
   } else {
     if (locationDataError) {
@@ -27,6 +27,10 @@ export async function POST(request: Request) {
 
   if (typeof data.address !== "string" || data.address.trim() === '') {
     return NextResponse.json({ error: "Invalid address." }, { status: 422 })
+  }
+
+  if (typeof data.timezone !== "string" || data.timezone.trim() === '') {
+    return NextResponse.json({ error: "Invalid timezone." }, { status: 422 })
   }
 
   if (isNaN(parseInt(data.lon)) || isNaN(parseInt(data.lat))) {

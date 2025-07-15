@@ -13,7 +13,7 @@ export default function Home() {
 	return (
 		<div
 			className="flex flex-col justify-center items-center"
-			role="presentation" suppressHydrationWarning
+			role="presentation"
 		>
 			<div className="yellowBackgroundContainer flex flex-col items-center">
 				<div className="square"></div>

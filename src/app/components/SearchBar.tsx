@@ -44,7 +44,7 @@ export default function SearchBar() {
 	}, [state, hydrated]);
 
 	return (
-		<div>
+		<div suppressHydrationWarning>
 			{!hydrated ? (
 				<div className="mt-4">
 					<p>Loading...</p>

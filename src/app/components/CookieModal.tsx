@@ -6,7 +6,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 } from "flowbite-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import React from "react";
 
@@ -19,15 +19,16 @@ export default function CookieModal({
 	openModalChange: React.Dispatch<React.SetStateAction<boolean>>;
 	address: string | undefined;
 }) {
+	const router = useRouter();
+
 	const handleAccept = () => {
-		redirect("/location");
+		router.push("/location");
 	};
 
 	const handleDecline = () => {
 		Cookies.remove("locationData");
 		openModalChange(false);
 	};
-	console.log("address in modal", address);
 
 	return (
 		<Modal show={openModal} onClose={() => openModalChange(false)}>

@@ -1,11 +1,19 @@
 "use client";
 import Link from "next/link";
 import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 export default function HomeLink() {
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        setHydrated(true);
+    }, []);
 
     const clearLocationCookie = () => {
-        Cookies.remove("locationData");
+        if (hydrated) {
+            Cookies.remove("locationData");
+        }
     }
 
     return (
@@ -13,5 +21,4 @@ export default function HomeLink() {
             &larr; Home
         </Link>
     )
-
 }

@@ -1,18 +1,17 @@
-http://worldtimeapi.org/api/timezone/America/Chicago
+https://timeapi.io/api/time/current/zone?timeZone=America/Chicago
+
 {
-    "utc_offset": "-05:00",
-    "timezone": "America/Chicago",
-    "day_of_week": 2,
-    "day_of_year": 196,
-    "datetime": "2025-07-15T12:23:38.320118-05:00",
-    "utc_datetime": "2025-07-15T17:23:38.320118+00:00",
-    "unixtime": 1752600218,
-    "raw_offset": -21600,
-    "week_number": 29,
-    "dst": true,
-    "abbreviation": "CDT",
-    "dst_offset": 3600,
-    "dst_from": "2025-03-09T08:00:00+00:00",
-    "dst_until": "2025-11-02T07:00:00+00:00",
-    "client_ip": "71.31.202.221"
+    "year": 2025,
+    "month": 7,
+    "day": 15,
+    "hour": 13,
+    "minute": 38,
+    "seconds": 31,
+    "milliSeconds": 933,
+    "dateTime": "2025-07-15T13:38:31.9333836",
+    "date": "07/15/2025",
+    "time": "13:38",
+    "timeZone": "America/Chicago",
+    "dayOfWeek": "Tuesday",
+    "dstActive": true
 }

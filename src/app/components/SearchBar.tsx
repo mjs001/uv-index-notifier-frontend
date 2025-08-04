@@ -10,33 +10,41 @@ import { redirect } from "next/navigation";
 
 const initialState = {
 	error: "",
-	data: { address: "", lat: "", lon: "" },
+	data: { address: "", lat: "", lon: "", timezone: "" },
 	cookie: false,
 };
 
 export default function SearchBar() {
-
-
-
 	const [state, formAction] = useActionState(getAddressData, initialState);
 	const [openModal, setOpenModal] = useState(false);
-	const [cookie, setCookie] = useState({ address: "", lat: "", lon: "" });
 	const [hydrated, setHydrated] = useState(false);
-	const rawCookie = Cookies.get("locationData");
-	const [address, setAddress] = useState(rawCookie ? JSON.parse(rawCookie).address : undefined)
+	const [address, setAddress] = useState<string | undefined>(undefined);
+
+	// Only set address and openModal after hydration
 	useEffect(() => {
 		setHydrated(true);
-		if (Cookies.get("locationData") !== undefined) {
-			setOpenModal(true);
-		}
 	}, []);
 
 	useEffect(() => {
+		if (hydrated) {
+			const locationData = Cookies.get("locationData");
+			if (locationData) {
+				try {
+					const parsedData = JSON.parse(locationData);
+					if (parsedData?.data?.address) {
+						setAddress(parsedData.data.address);
+						setOpenModal(true);
+					}
+				} catch (error) {
+					console.error("Error parsing location data from cookie:", error);
+				}
+			}
+		}
+	}, [hydrated]);
+
+	useEffect(() => {
 		if (hydrated && state.data && state.data.address) {
-			Cookies.set("locationData", JSON.stringify(state.data), { expires: 14 });
-			setCookie(state.data);
-			console.log("address", state.data.address)
-			console.log("inside useeffect", state);
+			Cookies.set("locationData", JSON.stringify(state), { expires: 14 });
 			if (!state.error) {
 				redirect("/location");
 			}
@@ -44,18 +52,22 @@ export default function SearchBar() {
 	}, [state, hydrated]);
 
 	return (
-		<div suppressHydrationWarning>
+		<div>
 			{!hydrated ? (
 				<div className="mt-4">
 					<p>Loading...</p>
 				</div>
 			) : (
 				<>
-					<CookieModal
-						openModal={openModal}
-						openModalChange={setOpenModal}
-						address={address}
-					/>
+					{address && openModal && (
+						<div>
+							<CookieModal
+								openModal={openModal}
+								openModalChange={setOpenModal}
+								address={address}
+							/>
+						</div>
+					)}
 					<div className="flex justify-center items-center">
 						{state.error && (
 							<p className="errorText mt-10 text-center">{state.error}</p>

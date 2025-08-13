@@ -16,9 +16,26 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-	title: "SafelyOutside",
+	title: "SafelyOutside - UV Index Safety Checker",
 	description:
-		"Check the times of day in which the UV index is below 1 in your location.",
+		"Check the times of day in which the UV index is at or below 1 in your location.",
+	keywords: ["UV index", "sun safety", "outdoor safety", "UV monitoring", "sun protection"],
+	authors: [{ name: "Myco Davenport" }],
+	creator: "Myco Davenport",
+	openGraph: {
+		title: "SafelyOutside - UV Index Safety Checker",
+		description: "Check the times of day in which the UV index is at or below 1 in your location.",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "SafelyOutside - UV Index Safety Checker",
+		description: "Check the times of day in which the UV index is at or below 1 in your location.",
+	},
+	robots: {
+		index: true,
+		follow: true,
+	},
 };
 
 export default function RootLayout({

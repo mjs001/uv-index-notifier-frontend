@@ -16,7 +16,6 @@ export default function Home() {
 
 
 	if (!hydrated) {
-		// Avoid any mismatch by not rendering anything until hydrated
 		return null;
 	}
 

@@ -1,21 +1,45 @@
 .container {
-  min-height: 70vh;
-  width: 60vw;
-background-color: rgba(255, 255, 255, 0.76);
+  min-height: 50vh;
+  background-color: rgba(255, 255, 255, 0.76);
   border-radius: 10px;
   filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.25));
 }
 
 .top-container{
-  width: 95%;
-  height: 25vh;
+  width: 100%;
   background-color: white;
   margin-top: 2.5%;
 }
 
 .current-uv-index-container {
-  width: 20%;
-  height: 80%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  background-color: red;
+  background-color: #97D700;
+}
+
+.bottomBox {
+  background-color: #A6979C;
+  color: white;
+  width: 100%;
+  min-height: 60px;
+}
+
+.uvBlocksContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.uvBlock {
+  display: flex;
+  background-color: #A6979C;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

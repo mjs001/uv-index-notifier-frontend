@@ -12,12 +12,10 @@ export async function getAddressData(
 	try {
 		const location = String(formData.get("location"));
 		const formattedInput = formatSearch(location);
-		console.log(formattedInput, process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY);
 
 		const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${formattedInput}&format=json&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`;
 		const res = await axios.get(url);
 
-		console.log(res.data);
 		if (res.data.results.length === 0) {
 			error = "Could not find a valid location. Please try again.";
 		} else {
@@ -33,12 +31,6 @@ export async function getAddressData(
 	}
 
 	const allData = { error: error, data: data, cookie: false };
-
-	// const domain = getDomainForNextApp();
-	// axios
-	// 	.post(`${domain}/api/location`, allData)
-	// 	.then((res) => console.log(res))
-	// 	.catch((err) => console.error(err.message));
 
 	return allData;
 }

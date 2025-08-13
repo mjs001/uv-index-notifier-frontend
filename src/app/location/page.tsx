@@ -26,7 +26,6 @@ export default function Location() {
 					.post(`${domain}/api/location`, JSON.parse(locationData))
 					.then((res) => {
 						setData(res.data);
-						console.log("RETURN FROM FLASK", res.data);
 					})
 					.catch((err) => {
 						console.error(err.message);
@@ -42,14 +41,14 @@ export default function Location() {
 			<HomeLink />
 			{error ? (
 				<p className="text-red-500">
-					An error occurred while trying to retrieve the UV forecast data. {error}
+					An error occurred while trying to retrieve the UV forecast data. {error}.
 				</p>
 			) : null}
 			{data ? (
 				<UvIndexContainer data={data} />
-			) : (
+			) : !error ? (
 				<p>Loading UV data...</p>
-			)}
+			) : null}
 		</div>
 	);
 }

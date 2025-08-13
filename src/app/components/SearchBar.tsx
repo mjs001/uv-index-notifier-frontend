@@ -6,7 +6,7 @@ import { getAddressData } from "../data/actions/getAddressData";
 import { useActionState } from "react";
 import Cookies from "js-cookie";
 import CookieModal from "./CookieModal";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const initialState = {
 	error: "",
@@ -15,12 +15,12 @@ const initialState = {
 };
 
 export default function SearchBar() {
+	const router = useRouter();
 	const [state, formAction] = useActionState(getAddressData, initialState);
 	const [openModal, setOpenModal] = useState(false);
 	const [hydrated, setHydrated] = useState(false);
 	const [address, setAddress] = useState<string | undefined>(undefined);
 
-	// Only set address and openModal after hydration
 	useEffect(() => {
 		setHydrated(true);
 	}, []);
@@ -46,10 +46,10 @@ export default function SearchBar() {
 		if (hydrated && state.data && state.data.address) {
 			Cookies.set("locationData", JSON.stringify(state), { expires: 14 });
 			if (!state.error) {
-				redirect("/location");
+				router.push("/location");
 			}
 		}
-	}, [state, hydrated]);
+	}, [state, hydrated, router]);
 
 	return (
 		<div>
@@ -78,7 +78,7 @@ export default function SearchBar() {
 						action={formAction}
 					>
 						<TextInput
-							className="h-[40px] w-[70vw]"
+							className="h-[40px] md:w-[70vw] w-[90vw]"
 							placeholder="Enter your location..."
 							name="location"
 						/>

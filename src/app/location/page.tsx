@@ -31,7 +31,7 @@ export default function Location() {
 					});
 			}
 		}
-	}, [domain, hydrated]);
+	}, [hydrated]);
 
 	return (
 		<div className="flex flex-col justify-between items-center">

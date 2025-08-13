@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       if (axiosError.response) {
         return NextResponse.json({ error: `An error occurred. ${axiosError.response.data}` }, { status: axiosError.response.status });
       }
-      return NextResponse.json({ error: "Network error or server unavailable" }, { status: 500 });
+      return NextResponse.json({ error: "Network error or server unavailable", err: err }, { status: 500 });
     }
   } catch (error) {
     console.error("API route error:", error);

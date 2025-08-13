@@ -5,14 +5,12 @@ import UvIndexContainer from "../components/UvIndexContainer";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { getDomainForNextApp } from "../utilities/getDomain"
 import { flaskData } from "../types/flaskData"
 
 export default function Location() {
 	const [data, setData] = useState<flaskData | null>(null);
 	const [error, setError] = useState("");
 	const [hydrated, setHydrated] = useState(false);
-	const domain = getDomainForNextApp();
 
 	useEffect(() => {
 		setHydrated(true);
@@ -23,7 +21,7 @@ export default function Location() {
 			const locationData = Cookies.get("locationData");
 			if (locationData) {
 				axios
-					.post(`${domain}/api/location`, JSON.parse(locationData))
+					.post(`/api/location`, JSON.parse(locationData))
 					.then((res) => {
 						setData(res.data);
 					})

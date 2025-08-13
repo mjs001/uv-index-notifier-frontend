@@ -29,7 +29,7 @@ export default function Home() {
 				<div className="blurredHalfCircle"></div>
 			</div>
 			<p className="font-roboto font-bold mt-10 text-[#264653] text-center">
-				Enter your location to see what time of day the UV index is below 1.
+				Enter your location to see what time of day the UV index is at or below 1.
 			</p>
 			{hydrated ? <SearchBar /> : <div>Loading...</div>}
 		</div>

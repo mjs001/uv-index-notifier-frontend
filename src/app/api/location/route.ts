@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { getDomainForPythonApp } from "../../utilities/getDomain"
+import { getIP } from "../../utilities/getIP";
+import { rateLimiter } from "../../utilities/rateLimiter"
+
 
 export async function POST(request: Request) {
-  try {
-    // Basic rate limiting check (you might want to implement a more sophisticated solution)
-    // const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
 
+  try {
     const data = await request.json();
 
     if (!data || typeof data !== "object") {
@@ -39,6 +40,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Longitude and/or Latitude is not a number." }, { status: 422 });
     }
 
+
+    try {
+      await rateLimiter.consume((await getIP()).toString(), 1);
+
+    } catch {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 })
+    }
+
     try {
       const flaskRes = await axios.post(`${getDomainForPythonApp()}/get_uv_data`, data)
       return NextResponse.json(flaskRes.data, { status: flaskRes.status });
@@ -53,4 +62,5 @@ export async function POST(request: Request) {
     console.error("API route error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
+
 }

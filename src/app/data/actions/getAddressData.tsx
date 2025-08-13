@@ -1,6 +1,9 @@
+"use server"
 import axios from "axios";
 import formatSearch from "../../utilities/formatInputData";
 import { locationData } from "../../types/locationData";
+import { getIP } from "@/app/utilities/getIP";
+import { rateLimiter } from "../../utilities/rateLimiter"
 
 export async function getAddressData(
 	prevState: locationData,
@@ -8,6 +11,12 @@ export async function getAddressData(
 ): Promise<locationData> {
 	let data = { address: "", lat: "", lon: "", timezone: "" };
 	let error = "";
+	try {
+		await rateLimiter.consume((await getIP()).toString(), 1);
+	} catch {
+		error = "Too many requests";
+		console.error("Too many requests")
+	}
 
 	try {
 		const location = String(formData.get("location"));
@@ -26,7 +35,7 @@ export async function getAddressData(
 			data = { address: address, lat: lat, lon: lon, timezone: timezone };
 		}
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 		error = err instanceof Error ? err.message : "An error occurred";
 	}
 

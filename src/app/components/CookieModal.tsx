@@ -32,7 +32,7 @@ export default function CookieModal({
 
 	return (
 		<Modal show={openModal} onClose={() => openModalChange(false)}>
-			<ModalHeader>Terms of Service</ModalHeader>
+			<ModalHeader>Confirm Location</ModalHeader>
 			<ModalBody>
 				<div className="space-y-6">
 					<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

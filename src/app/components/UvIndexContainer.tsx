@@ -23,13 +23,11 @@ export default function UvIndexContainer({ data }: { data: flaskData }) {
 				}
 			} catch (error) {
 				console.error("Error parsing location data from cookie:", error);
-				// Optionally clear the malformed cookie
 				Cookies.remove("locationData");
 			}
 		}
 	}, [hydrated]);
 
-	// Validate required data
 	if (!data || typeof data.current_uv_index !== 'number' || !Array.isArray(data.uv_index_forecast)) {
 		return <div className="text-center text-red-500">Error: Invalid data received</div>;
 	}
